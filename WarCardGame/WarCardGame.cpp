@@ -1,4 +1,3 @@
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
@@ -18,7 +17,7 @@ typedef enum {
 } Suit;
 
 // Array of suit names
-const char* suitNames[] = { "Clubs", "Diamonds", "Hearts", "Spades" };
+const char* suitNames[] = { "of Clubs", "of Diamonds", "of Hearts", "of Spades" };
 
 // Array of card ranks' names
 const char* rankNames[] = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
@@ -32,6 +31,7 @@ void shuffle(int array[], int size) {
         array[j] = temp;
     }
 }
+
 
 int main() {
     // Create an array to represent a deck of cards
@@ -66,26 +66,33 @@ int main() {
         int rank1 = card1 % 13;
         int rank2 = card2 % 13;
 
-        printf("Round %d: Player 1 plays card %s (%s), Player 2 plays card %s (%s)\n", rounds + 1, rankNames[rank1], suitNames[suit1], rankNames[rank2], suitNames[suit2]);
+        printf("ROUND %d!!\n", rounds + 1);
+        printf("Player 1 plays: %s %s\nPlayer 2 plays: %s %s\n", rankNames[rank1], suitNames[suit1], rankNames[rank2], suitNames[suit2]);
 
         if (rank1 == 12 && rank2 != 12) {
-            printf("Player 1 wins the round!\n");
+            printf("Player 1 wins the round!\n\n");
             player1Score++;
+            printf("Player 1 score: %d\nPlayer 2 score: %d\n", player1Score, player2Score);
         }
         else if (rank2 == 12 && rank1 != 12) {
-            printf("Player 2 wins the round!\n");
+            printf("Player 2 wins the round!\n\n");
             player2Score++;
+            printf("Player 1 score: %d\nPlayer 2 score: %d\n\n", player1Score, player2Score);
         }
         else if (rank1 > rank2) {
-            printf("Player 1 wins the round!\n");
+            printf("Player 1 wins the round!\n\n");
             player1Score++;
+            printf("Player 1 score: %d\nPlayer 2 score: %d\n\n", player1Score, player2Score);
         }
         else if (rank2 > rank1) {
-            printf("Player 2 wins the round!\n");
+            printf("Player 2 wins the round!\n\n");
             player2Score++;
+            printf("Player 1 score: %d\nPlayer 2 score: %d\n\n", player1Score, player2Score);
         }
         else {
-            printf("It's a tie! War is declared.\n");
+            printf("It's a tie! War is declared.\n\n");
+            printf("Player 1 score: %d\nPlayer 2 score: %d\n\n", player1Score, player2Score);
+
         }
 
         rounds++;
@@ -94,15 +101,15 @@ int main() {
         char choice;
         printf("Continue playing? (Y/N): ");
         scanf(" %c", &choice);
-
+        printf("\n");
         if (choice != 'Y' && choice != 'y') {
             break;
         }
     }
 
     printf("\nGame Over!\n");
-    printf("Player 1's score: %d\n", player1Score);
-    printf("Player 2's score: %d\n", player2Score);
+    printf("Player 1's total score: %d\n", player1Score);
+    printf("Player 2's total score: %d\n", player2Score);
 
     return 0;
 }
