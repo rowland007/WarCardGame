@@ -32,7 +32,6 @@ void shuffle(int array[], int size) {
     }
 }
 
-
 int main() {
     char answer;
     int i;
@@ -105,11 +104,19 @@ int main() {
                 if (player1Score == player2Score) {
                     printf("It's a tie! War is declared.\n\n");
 
-                    //shuffle deck again
-                    srand(time(NULL));
-                    shuffle(deck, NUM_CARDS);
+                    for (int i = 1; i <= 3; i++);
+                        int card1 = player1[rounds];
+                        int card2 = player2[rounds];
 
-                    for (i = 1; i <= 3; i++);
+                        Suit suit1 = (Suit)(card1 / 13);
+                        Suit suit2 = (Suit)(card2 / 13);
+
+                        int rank1 = card1 % 13;
+                        int rank2 = card2 % 13;
+
+                        printf("Round %d!!\n", rounds + 1);
+                        printf("Player 1 plays: %s %s\nComputer plays: %s %s\n\n", rankNames[rank1], suitNames[suit1], rankNames[rank2], suitNames[suit2]);
+
                         if (rank1 == 12 && rank2 != 12) {
                             printf("Player 1 wins the Tie!\n\n");
                             player1Score++;
@@ -129,12 +136,11 @@ int main() {
                             printf("Computer wins the Tie!\n\n");
                             player2Score++;
                             printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
-                    }
-
+                        }
+                        rounds++;
                 }
 
             }
-
             rounds++;
 
             // Ask the user to continue or quit
@@ -147,15 +153,69 @@ int main() {
             }
         }
 
-        if (player1Score > player2Score) {
-            printf("\nGame Over!\n");
-            printf("Player 1 wins the game!\n");
-            printf("Nicely done Chap!!\n");
-        }
-        else {
-            printf("\nGame Over!\n");
-            printf("Computer wins the game!\n");
-            printf("Better luck next time.\n");
+        if (player1Score == player2Score) {
+            printf("\nOh no! The game is tied. Time for sudden death round");
+            //reshuffle the deck
+            shuffle(deck, NUM_CARDS);
+            //deal 3 cards to each player
+            for (int i = 0; i < 3; i++) {
+                player1[i] = deck[i];
+                player2[i] = deck[i + NUM_CARDS / 2];
+            }
+            //reset rounds to 0
+            rounds = 0;
+            //play game for 3 rounds
+            while (rounds < 3) {
+                int card1 = player1[rounds];
+                int card2 = player2[rounds];
+
+                Suit suit1 = (Suit)(card1 / 13);
+                Suit suit2 = (Suit)(card2 / 13);
+
+                int rank1 = card1 % 13;
+                int rank2 = card2 % 13;
+
+                printf("SUDDEN DEATH ROUND %d!!\n", rounds + 1);
+                printf("Player 1 plays: %s %s\nComputer plays: %s %s\n\n", rankNames[rank1], suitNames[suit1], rankNames[rank2], suitNames[suit2]);
+
+                if (rank1 == 12 && rank2 != 12) {
+                    printf("Player 1 wins the round!\n\n");
+                    player1Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                }
+                else if (rank2 == 12 && rank1 != 12) {
+                    printf("Computer wins the round!\n\n");
+                    player2Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                }
+                else if (rank1 > rank2) {
+                    printf("Player 1 wins the round!\n\n");
+                    player1Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                }
+                else if (rank2 > rank1) {
+                    printf("Computer wins the round!\n\n");
+                    player2Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                }
+                else {
+                    printf("It's a tie! War is declared.\n\n");
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+
+                }
+                rounds++;
+            }
+
+            if (player1Score > player2Score) {
+                printf("\nGame Over!\n");
+                printf("Player 1 wins the game!\n");
+                printf("Nicely done Chap!!\n");
+            }
+            else {
+                printf("\nGame Over!\n");
+                printf("Computer wins the game!\n");
+                printf("Better luck next time.\n");
+            }
         }
 
     }
