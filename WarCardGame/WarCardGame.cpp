@@ -91,10 +91,43 @@ int main() {
         }
         else {
             printf("It's a tie! War is declared.\n\n");
-            printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+            for (i = 1; i <= 3; i++) {
+                int card1 = player1[rounds];
+                int card2 = player2[rounds];
+
+                Suit suit1 = (Suit)(card1 / 13);
+                Suit suit2 = (Suit)(card2 / 13);
+
+                int rank1 = card1 % 13;
+                int rank2 = card2 % 13;
+
+                printf("ROUND %d!!\n", rounds + 1);
+                printf("Player 1 plays: %s %s\nComputer plays: %s %s\n\n", rankNames[rank1], suitNames[suit1], rankNames[rank2], suitNames[suit2]);
+
+                if (rank1 == 12 && rank2 != 12) {
+                    printf("Player 1 wins the round!\n\n");
+                    player1Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                 }
+                else if (rank2 == 12 && rank1 != 12) {
+                    printf("Computer wins the round!\n\n");
+                    player2Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                }
+                else if (rank1 > rank2) {
+                    printf("Player 1 wins the round!\n\n");
+                    player1Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                }
+                else if (rank2 > rank1) {
+                    printf("Computer wins the round!\n\n");
+                    player2Score++;
+                    printf("Player 1 score: %d\nComputer score: %d\n\n", player1Score, player2Score);
+                }
+                rounds++;
+            }
 
         }
-
         rounds++;
 
         // Ask the user to continue or quit
